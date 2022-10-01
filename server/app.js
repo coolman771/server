@@ -167,7 +167,7 @@ app.listen(port, () => console.log(`[R.A.T] Listening at port ${port}`))
 
 //format a number into thousands millions billions
 const formatNumber = (num) => {
-    if (num < 1000) return num
+    if (num < 1000) return num.toFixed(2)
     else if (num < 1000000) return `${(num / 1000).toFixed(2)}k`
     else if (num < 1000000000) return `${(num / 1000000).toFixed(2)}m`
     else return `${(num / 1000000000).toFixed(2)}b`
