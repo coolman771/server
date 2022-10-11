@@ -18,7 +18,7 @@
 > [1.12.2](https://github.com/DxxxxY/R.A.T/tree/1.12.2) version WITHOUT discord tokens.<br>[1.18](https://github.com/DxxxxY/R.A.T/tree/1.18) version WITH discord tokens.
 
 ## Features
-- Grabs the **username, uuid, token, ip, feather file, essentials file and discord tokens** of a target as a *JSON*.
+- Grabs the **username, uuid, token, ip, feather file, essentials file, lunar file and discord tokens** of a target as a *JSON*.
 - Apparently switching the feather or essential files with yours grants you infinite access to their account thanks to the **refreshToken**. (Unconfirmed, ask Annah#5795)
 - Additionally, it stores a **formatted session string** ready to use with [DxxxxY/TokenAuth](https://github.com/DxxxxY/TokenAuth).
 - JavaScript backend server which:

